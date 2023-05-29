@@ -42,41 +42,41 @@ public class UserInterface {
      * Generates a corrected cube
      */
     public Cube getCorrectCube() {
-        Row f0 = new Row("red", "red", "red");
-        Row f1 = new Row("red", "red", "red");
-        Row f2 = new Row("red", "red", "red");
+        Row r0 = new Row("red", "red", "red");
+        Row r1 = new Row("red", "red", "red");
+        Row r2 = new Row("red", "red", "red");
 
-        Face c0 = new Face(f0, f1, f2);
+        Face f0 = new Face(r0, r1, r2);
 
-        f0 = new Row("white", "white", "white");
-        f1 = new Row("white", "white", "white");
-        f2 = new Row("white", "white", "white");
+        r0 = new Row("white", "white", "white");
+        r1 = new Row("white", "white", "white");
+        r2 = new Row("white", "white", "white");
 
-        Face c1 = new Face(f0, f1, f2);
+        Face f1 = new Face(r0, r1, r2);
 
-        f0 = new Row("orange", "orange", "orange");
-        f1 = new Row("orange", "orange", "orange");
-        f2 = new Row("orange", "orange", "orange");
+        r0 = new Row("orange", "orange", "orange");
+        r1 = new Row("orange", "orange", "orange");
+        r2 = new Row("orange", "orange", "orange");
 
-        Face c2 = new Face(f0, f1, f2);
+        Face f2 = new Face(r0, r1, r2);
 
-        f0 = new Row("yellow", "yellow", "yellow");
-        f1 = new Row("yellow", "yellow", "yellow");
-        f2 = new Row("yellow", "yellow", "yellow");
+        r0 = new Row("yellow", "yellow", "yellow");
+        r1 = new Row("yellow", "yellow", "yellow");
+        r2 = new Row("yellow", "yellow", "yellow");
 
-        Face c3 = new Face(f0, f1, f2);
+        Face f3 = new Face(r0, r1, r2);
 
-        f0 = new Row("green", "green", "green");
-        f1 = new Row("green", "green", "green");
-        f2 = new Row("green", "green", "green");
+        r0 = new Row("green", "green", "green");
+        r1 = new Row("green", "green", "green");
+        r2 = new Row("green", "green", "green");
 
-        Face c4 = new Face(f0, f1, f2);
+        Face f4 = new Face(r0, r1, r2);
 
-        f0 = new Row("blue", "blue", "blue");
-        f1 = new Row("blue", "blue", "blue");
-        f2 = new Row("blue", "blue", "blue");
+        r0 = new Row("blue", "blue", "blue");
+        r1 = new Row("blue", "blue", "blue");
+        r2 = new Row("blue", "blue", "blue");
 
-        Face c5 = new Face(f0, f1, f2);
-        return new Cube(c0, c1, c2, c3, c4, c5);
+        Face f5 = new Face(r0, r1, r2);
+        return new Cube(f0, f1, f2, f3, f4, f5);
     }
 }
