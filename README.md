@@ -11,7 +11,7 @@ The solution presented is made up of the set of actions that must be done on the
 For example:
 
     X0 -> Y2 -> X0 -> Y0 -> Y1 -> Z2 -> Z2 
-    
+
 To carry out this operation, the physical cube must be placed with the red face facing the user and
 The white face on the right.
 (The color of a face is indicated by the center square of the face.)
@@ -27,13 +27,12 @@ Carrying out Xn consists of moving a row of the red face to the right.
 
 cube.X(0):
 
-        Face 0:
-            ------------------------------------           Face 1:
-            green     || red       || orange   |           -----------------------------------
-            white     || red       || red      |           white     || yellow   || yellow  |
+        Face 0:                                            Face 1:
+            ------------------------------------           -----------------------------------
+            green     || red       || orange   |           white     || yellow   || yellow  |
+            white     || red       || red      |           white     || white    || orange  |
             red       || red       || red      |           white     || white    || orange  |
-            ------------------------------------           white     || white    || orange  |
-
+            ------------------------------------           -----------------------------------
 
 Yn Consists of moving one column down:
 
