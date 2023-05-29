@@ -1,0 +1,23 @@
+red red yellow
+red red green
+blue orange orange
+
+green green yellow
+white white yellow
+white blue yellow
+
+red orange white
+red orange blue
+red red red orange
+
+blue blue green
+yellow yellow green
+yellow green white
+
+orange yellow green
+orange green orange
+white white orange
+
+red white green
+yellow blue white
+blue blue blue
