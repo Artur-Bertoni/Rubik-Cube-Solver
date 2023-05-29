@@ -39,7 +39,7 @@ public class Problem {
     }
 
     /**
-     * Successor states of a given state
+     * Successor status of a given status
      */
     public ArrayList<Status> getSuccessorStatus(Status e) {
         Cube current = e.getCurrent();

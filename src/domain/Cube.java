@@ -34,13 +34,13 @@ public class Cube implements Cloneable, Serializable {
      * Returns true if cube color is valid
      */
     public static boolean validColor(String color) {
-        return Cube.is(color);
+        return Cube.isValid(color);
     }
 
     /**
      * Returns true if a string is within a list of strings
      */
-    private static boolean is(String c) {
+    private static boolean isValid(String c) {
         boolean is = false;
         for (int i = 0; i < Cube.colors.length; i++) {
             if (c.equals(Cube.colors[i])) {
