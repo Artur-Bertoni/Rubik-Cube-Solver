@@ -158,7 +158,6 @@ public class Face implements Cloneable, Serializable {
         row0.turn(rowA);
         row1.turn(rowB);
         row2.turn(rowC);
-
     }
 
     /**

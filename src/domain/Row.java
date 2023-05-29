@@ -63,21 +63,16 @@ public class Row implements Cloneable, Serializable {
     /**
      * Rotate a row
      */
-    public Row turn(Row l) {
-
-        Row current = (Row) clone();
+    public void turn(Row l) {
         box0 = translateAInt(l.getBoxes().get(0));
         box1 = translateAInt(l.getBoxes().get(1));
         box2 = translateAInt(l.getBoxes().get(2));
-
-        return current;
     }
 
 
     @Override
     public Object clone() {
-        Object row = new Row(translateAString(box0), translateAString(box1), translateAString(box2));
-        return row;
+        return new Row(translateAString(box0), translateAString(box1), translateAString(box2));
     }
 
     public String toString() {
@@ -96,9 +91,7 @@ public class Row implements Cloneable, Serializable {
      */
     private String fill(String name) {
         StringBuilder nameBuilder = new StringBuilder(name);
-        for (int i = nameBuilder.length(); i <= 8; i++) {
-            nameBuilder.append(" ");
-        }
+        nameBuilder.append(" ".repeat(Math.max(0, 8 - nameBuilder.length() + 1)));
         name = nameBuilder.toString();
         return name;
     }
@@ -123,7 +116,6 @@ public class Row implements Cloneable, Serializable {
                     equals = false;
                 }
             }
-
         } else {
             equals = false;
         }

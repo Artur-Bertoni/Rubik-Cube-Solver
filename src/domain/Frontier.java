@@ -11,9 +11,6 @@ public class Frontier {
 
     private Vector<SearchNode> frontier;
 
-    /**
-     *
-     */
     public Frontier() {
         frontier = new Vector<>();
     }
@@ -75,7 +72,6 @@ public class Frontier {
             }
         }
     }
-
 
     /**
      * Inserts a lookup node ahead of the border
