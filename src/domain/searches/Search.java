@@ -13,7 +13,6 @@ public abstract class Search {
 
     protected int advance;
     protected Problem problem;
-    protected double cost;
     protected int spatialComplexity;
     protected double temporalComplexity;
     protected Frontier frontier;

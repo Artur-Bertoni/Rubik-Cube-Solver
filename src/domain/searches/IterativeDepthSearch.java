@@ -17,8 +17,7 @@ public class IterativeDepthSearch extends BoundedDepthSearch {
     protected Vector<Integer> spatialComplexityIterations;
 
 
-    public IterativeDepthSearch(Problem problem,
-                                int maximumDepth, int iteration, boolean pruning) {
+    public IterativeDepthSearch(Problem problem, int maximumDepth, int iteration, boolean pruning) {
         super(problem, maximumDepth, pruning);
         this.iteration = iteration;
         temporalComplexityIterations = new Vector<>();
