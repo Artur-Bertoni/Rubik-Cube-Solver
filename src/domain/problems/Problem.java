@@ -13,10 +13,6 @@ public class Problem {
 
     private final Status start;
 
-    public Problem(Status start) {
-        this.start = start;
-    }
-
     public Problem(Cube actual) {
         start = new Status(actual, "***");
     }
@@ -31,7 +27,7 @@ public class Problem {
      */
     public ArrayList<SearchNode> successors(SearchNode e) {
         ArrayList<SearchNode> r = new ArrayList<>();
-        ArrayList<Status> successorStatuses = getSuccessorStatus(e.getEstado());
+        ArrayList<Status> successorStatuses = getSuccessorStatus(e.getCurrent());
         for (Status status : successorStatuses) {
             r.add(new SearchNode(e, status, e.getDepth() + 1, e.getValue() + 1));
         }
@@ -47,16 +43,16 @@ public class Problem {
         ArrayList<Status> r = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             c = (Cube) current.clone();
-            c.X(i);
-            r.add(new Status(c, "X" + i));
+            c.moveARowToTheRight(i);
+            r.add(new Status(c, "R(" + i + ")tR"));
 
             c = (Cube) current.clone();
-            c.Y(i);
-            r.add(new Status(c, "Y" + i));
+            c.moveOneColumnDown(i);
+            r.add(new Status(c, "C(" + i + ")tD"));
 
             c = (Cube) current.clone();
-            c.Z(i);
-            r.add(new Status(c, "Z" + i));
+            c.rotate(i);
+            r.add(new Status(c, "F(" + i + ")tL"));
         }
         return r;
     }
@@ -66,5 +62,9 @@ public class Problem {
      */
     public boolean objectiveTest(Status e) {
         return e.getCurrent().equals(e.getReach());
+    }
+
+    protected int heuristics(Status e) {
+        return e.getCurrent().getValueDistanceManhattan() - e.getCurrent().completed();
     }
 }

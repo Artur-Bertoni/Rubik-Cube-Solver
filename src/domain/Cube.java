@@ -1,7 +1,5 @@
 package domain;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -16,18 +14,18 @@ public class Cube implements Cloneable, Serializable {
      * Faces in order of how the physical cube should look to apply the operations correctly
      * The cube must be placed with the face0 (red) in front, and the green face above (face5)
      */
-    private Face face4;  //green  (top)
-    private Face face0, face1, face2, face3;  //red, white, orange (back), yellow
-    private Face face5;     //blue (down)
+    private Face topFace;  //green  (top)
+    private Face frontFace, rightFace, backFace, leftFace;  //red, white, orange (back), yellow
+    private Face downFace;     //blue (down)
 
 
-    public Cube(Face face0, Face face1, Face face2, Face face3, Face face4, Face face5) {
-        this.face4 = face4;
-        this.face0 = face0;
-        this.face1 = face1;
-        this.face2 = face2;
-        this.face3 = face3;
-        this.face5 = face5;
+    public Cube(Face frontFace, Face rightFace, Face backFace, Face leftFace, Face topFace, Face downFace) {
+        this.topFace = topFace;
+        this.frontFace = frontFace;
+        this.rightFace = rightFace;
+        this.backFace = backFace;
+        this.leftFace = leftFace;
+        this.downFace = downFace;
     }
 
     /**
@@ -55,7 +53,7 @@ public class Cube implements Cloneable, Serializable {
      * Placing the cube in the indicated position (red, front; green, top),
      * a movement X corresponds to rotating X0 X1 X2 one row to the right
      */
-    public void X(int row) {
+    public void moveARowToTheRight(int row) {
         ArrayList<Face> sisterFaces = sisterFaces();
         Face aux = sisterFaces.get(3);
         for (Face sisterFace : sisterFaces) {
@@ -63,11 +61,11 @@ public class Cube implements Cloneable, Serializable {
         }
 
         if (row == 0) {
-            face4.transposeLeft();
+            topFace.transposeLeft();
         }
 
         if (row == 2) {
-            face5.transposeRight();
+            downFace.transposeRight();
         }
         place();
     }
@@ -75,33 +73,18 @@ public class Cube implements Cloneable, Serializable {
     /**
      * With the cube well-placed, the Y movement consists of rotating one column downwards Y0,Y1,Y2
      */
-    public void Y(int row) {
+    public void moveOneColumnDown(int row) {
         rotateReverse();
-        X(2 - row);
+        moveARowToTheRight(2 - row);
     }
 
     /**
      * With the cube well-placed, the Z movement consists of turning one face to the right
      * That is, Z0 transposes the red face, Z1 applies on the plane behind the red face (intermediate) and Z2 transposes the orange face
      */
-    public void Z(int row) {
+    public void rotate(int row) {
         rotateDown();
-        X(2 - row);
-    }
-
-    /**
-     * To perform one of the possible operations
-     */
-    public void operateCube(ArrayList<String> op) {
-        for (String s : op) {
-            final int row = Integer.parseInt(String.valueOf(s.charAt(1)));
-
-            switch (s.charAt(0)) {
-                case 'X' -> X(row);
-                case 'Y' -> Y(row);
-                case 'Z' -> Z(row);
-            }
-        }
+        moveARowToTheRight(2 - row);
     }
 
     /**
@@ -109,12 +92,12 @@ public class Cube implements Cloneable, Serializable {
      */
     public void rotateLeft() {
         ArrayList<Face> faces = (ArrayList<Face>) getFaces().clone();
-        face0 = faces.get(3);
-        face1 = faces.get(0);
-        face2 = faces.get(1);
-        face3 = faces.get(2);
-        face4.transposeLeft();
-        face5.transposeRight();
+        frontFace = faces.get(3);
+        rightFace = faces.get(0);
+        backFace = faces.get(1);
+        leftFace = faces.get(2);
+        topFace.transposeLeft();
+        downFace.transposeRight();
     }
 
     /**
@@ -122,12 +105,12 @@ public class Cube implements Cloneable, Serializable {
      */
     public void rotateRight() {
         ArrayList<Face> faces = (ArrayList<Face>) getFaces().clone();
-        face0 = faces.get(1);
-        face1 = faces.get(2);
-        face2 = faces.get(3);
-        face3 = faces.get(0);
-        face4.transposeRight();
-        face5.transposeLeft();
+        frontFace = faces.get(1);
+        rightFace = faces.get(2);
+        backFace = faces.get(3);
+        leftFace = faces.get(0);
+        topFace.transposeRight();
+        downFace.transposeLeft();
     }
 
     /**
@@ -135,37 +118,17 @@ public class Cube implements Cloneable, Serializable {
      */
     public void rotateDown() {
         ArrayList<Face> faces = (ArrayList<Face>) getFaces().clone();
-        face0 = faces.get(4);
-        face1.transposeLeft();
-        face2 = faces.get(5);
-        face2.transposeRight();
-        face2.transposeRight();
-        face3.transposeRight();
+        frontFace = faces.get(4);
+        rightFace.transposeLeft();
+        backFace = faces.get(5);
+        backFace.transposeRight();
+        backFace.transposeRight();
+        leftFace.transposeRight();
 
-        face4 = faces.get(2);
-        face4.transposeRight();
-        face4.transposeRight();
-        face5 = faces.get(0);
-    }
-
-    /**
-     * Manipulates the cube in a different position from the original (red face in front, green above) is necessary for some operations
-     */
-    public void rotateUp() {
-        ArrayList<Face> faces = (ArrayList<Face>) getFaces().clone();
-        face0 = faces.get(5);
-        face1.transposeRight();
-        face2 = faces.get(4);
-        face2.transposeRight();
-        face2.transposeRight();
-
-        face3.transposeLeft();
-
-        face4 = faces.get(0);
-
-        face5 = faces.get(2);
-        face5.transposeRight();
-        face5.transposeRight();
+        topFace = faces.get(2);
+        topFace.transposeRight();
+        topFace.transposeRight();
+        downFace = faces.get(0);
     }
 
     /**
@@ -173,20 +136,20 @@ public class Cube implements Cloneable, Serializable {
      */
     public void rotateDirect() {
         ArrayList<Face> faces = (ArrayList<Face>) getFaces().clone();
-        face0.transposeRight();
-        face1 = faces.get(4);
-        face1.transposeRight();
+        frontFace.transposeRight();
+        rightFace = faces.get(4);
+        rightFace.transposeRight();
 
-        face2.transposeLeft();
+        backFace.transposeLeft();
 
-        face3 = faces.get(5);
-        face3.transposeRight();
+        leftFace = faces.get(5);
+        leftFace.transposeRight();
 
-        face4 = faces.get(3);
-        face4.transposeRight();
+        topFace = faces.get(3);
+        topFace.transposeRight();
 
-        face5 = faces.get(1);
-        face5.transposeRight();
+        downFace = faces.get(1);
+        downFace.transposeRight();
     }
 
     /**
@@ -194,20 +157,20 @@ public class Cube implements Cloneable, Serializable {
      */
     public void rotateReverse() {
         ArrayList<Face> faces = (ArrayList<Face>) getFaces().clone();
-        face0.transposeLeft();
-        face1 = faces.get(5);
-        face1.transposeLeft();
+        frontFace.transposeLeft();
+        rightFace = faces.get(5);
+        rightFace.transposeLeft();
 
-        face2.transposeRight();
+        backFace.transposeRight();
 
-        face3 = faces.get(4);
-        face3.transposeLeft();
+        leftFace = faces.get(4);
+        leftFace.transposeLeft();
 
-        face4 = faces.get(1);
-        face4.transposeLeft();
+        topFace = faces.get(1);
+        topFace.transposeLeft();
 
-        face5 = faces.get(3);
-        face5.transposeLeft();
+        downFace = faces.get(3);
+        downFace.transposeLeft();
     }
 
     /**
@@ -215,10 +178,10 @@ public class Cube implements Cloneable, Serializable {
      */
     public ArrayList<Face> sisterFaces() {
         ArrayList<Face> r = new ArrayList<>();
-        r.add(face0);
-        r.add(face1);
-        r.add(face2);
-        r.add(face3);
+        r.add(frontFace);
+        r.add(rightFace);
+        r.add(backFace);
+        r.add(leftFace);
         return r;
     }
 
@@ -227,32 +190,37 @@ public class Cube implements Cloneable, Serializable {
      */
     public ArrayList<Face> getFaces() {
         ArrayList<Face> faces = new ArrayList<>();
-        faces.add(face0);
-        faces.add(face1);
-        faces.add(face2);
-        faces.add(face3);
-        faces.add(face4);
-        faces.add(face5);
+        faces.add(frontFace);
+        faces.add(rightFace);
+        faces.add(backFace);
+        faces.add(leftFace);
+        faces.add(topFace);
+        faces.add(downFace);
 
         return faces;
     }
 
     @Override
     public String toString() {
-        String r = "Face 0:\n";
-        r += face0 + "\n";
-        r += "Face 1:\n";
-        r += face1 + "\n";
-        r += "Face 2:\n";
-        r += face2 + "\n";
-        r += "Face 3:\n";
-        r += face3 + "\n";
-        r += "Face 4:\n";
-        r += face4 + "\n";
-        r += "Face 5:\n";
-        r += face5 + "\n";
+        Face emptyFace = new Face(
+                new Row(" ", " ", " "),
+                new Row(" ", " ", " "),
+                new Row(" ", " ", " ")
+        );
 
-        return r;
+        return "                                      -----------------------------------\n" +
+                "   " + emptyFace.getRow0() + " " + topFace.getRow0() + "\n" +
+                "   " + emptyFace.getRow1() + " " + topFace.getRow1() + "\n" +
+                "   " + emptyFace.getRow2() + " " + topFace.getRow2() + "\n" +
+                "  ----------------------------------  ----------------------------------  ----------------------------------  ----------------------------------\n" +
+                "|| " + leftFace.getRow0() + " " + frontFace.getRow0() + " " + rightFace.getRow0() + " " + backFace.getRow0() + "\n" +
+                "|| " + leftFace.getRow1() + " " + frontFace.getRow1() + " " + rightFace.getRow1() + " " + backFace.getRow1() + "\n" +
+                "|| " + leftFace.getRow2() + " " + frontFace.getRow2() + " " + rightFace.getRow2() + " " + backFace.getRow2() + "\n" +
+                "  ----------------------------------  ----------------------------------  ----------------------------------  ----------------------------------\n" +
+                "   " + emptyFace.getRow0() + " " + downFace.getRow0() + "\n" +
+                "   " + emptyFace.getRow1() + " " + downFace.getRow1() + "\n" +
+                "   " + emptyFace.getRow2() + " " + downFace.getRow2() + "\n" +
+                "                                      -----------------------------------\n";
     }
 
     @Override
@@ -282,12 +250,12 @@ public class Cube implements Cloneable, Serializable {
      */
     public ArrayList<String> getFacesColors() {
         ArrayList<String> boxes = new ArrayList<>();
-        boxes.add(face0.getFaceColor());
-        boxes.add(face1.getFaceColor());
-        boxes.add(face2.getFaceColor());
-        boxes.add(face3.getFaceColor());
-        boxes.add(face4.getFaceColor());
-        boxes.add(face5.getFaceColor());
+        boxes.add(frontFace.getFaceColor());
+        boxes.add(rightFace.getFaceColor());
+        boxes.add(backFace.getFaceColor());
+        boxes.add(leftFace.getFaceColor());
+        boxes.add(topFace.getFaceColor());
+        boxes.add(downFace.getFaceColor());
         return boxes;
     }
 
@@ -332,8 +300,8 @@ public class Cube implements Cloneable, Serializable {
 
     @Override
     public Object clone() {
-        return new Cube((Face) face0.clone(), (Face) face1.clone(), (Face) face2.clone(), (Face) face3.clone(),
-                (Face) face4.clone(), (Face) face5.clone());
+        return new Cube((Face) frontFace.clone(), (Face) rightFace.clone(), (Face) backFace.clone(), (Face) leftFace.clone(),
+                (Face) topFace.clone(), (Face) downFace.clone());
     }
 
     /**
@@ -404,52 +372,5 @@ public class Cube implements Cloneable, Serializable {
             case "blue" -> 281;
             default -> 1;
         };
-    }
-
-    /**
-     * Generates a file with the cube so that it can be loaded later if a default value is needed
-     */
-    public void persistCube() {
-        FileWriter file = null;
-        PrintWriter pw;
-        try {
-            file = new FileWriter("cube.txt");
-            pw = new PrintWriter(file);
-            pw.println(this.getContent());
-
-        } catch (Exception e) {
-            System.out.println();
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != file) {
-                    file.close();
-                }
-            } catch (Exception e2) {
-                System.out.println();
-                e2.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Returns a string with the formatted cube information to save to a file
-     */
-    private String getContent() {
-        StringBuilder res = new StringBuilder();
-        ArrayList<Face> faces = this.getFaces();
-        ArrayList<Row> rows;
-        for (Face face : faces) {
-            rows = face.getRows();
-            for (Row f : rows) {
-                ArrayList<String> boxes = f.getBoxes();
-                for (String c : boxes) {
-                    res.append(c).append(" ");
-                }
-                res.append("\n");
-            }
-            res.append("\n");
-        }
-        return res.toString();
     }
 }

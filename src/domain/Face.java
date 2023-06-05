@@ -12,13 +12,11 @@ public class Face implements Cloneable, Serializable {
     private Row row1;
     private Row row2;
 
-
     public Face(Row row0, Row row1, Row row2) {
         this.row0 = row0;
         this.row1 = row1;
         this.row2 = row2;
     }
-
 
     public Face(Row[] rows) {
         if (rows.length == 3) {
@@ -26,6 +24,18 @@ public class Face implements Cloneable, Serializable {
             this.row1 = rows[1];
             this.row2 = rows[2];
         }
+    }
+
+    public Row getRow0() {
+        return row0;
+    }
+
+    public Row getRow1() {
+        return row1;
+    }
+
+    public Row getRow2() {
+        return row2;
     }
 
     /**
@@ -172,9 +182,9 @@ public class Face implements Cloneable, Serializable {
     public String toString() {
         String r = "";
         r += "------------------------------------\n";
-        r += row0 + "|\n";
-        r += row1 + "|\n";
-        r += row2 + "|\n";
+        r += row0 + "\n";
+        r += row1 + "\n";
+        r += row2 + "\n";
         r += "------------------------------------";
         return r;
     }
@@ -217,13 +227,5 @@ public class Face implements Cloneable, Serializable {
             }
         }
         return r;
-    }
-
-    /**
-     * There's a cross on the face if it's any use
-     */
-    public boolean cross() {
-        return row0.getBoxes().get(1).equals(getFaceColor()) && row1.correct()
-                && row2.getBoxes().get(1).equals(getFaceColor());
     }
 }

@@ -33,6 +33,7 @@ public class Row implements Cloneable, Serializable {
             case "yellow" -> 3;
             case "green" -> 4;
             case "blue" -> 5;
+            case " " -> 6;
             default -> 0;
         };
     }
@@ -45,6 +46,7 @@ public class Row implements Cloneable, Serializable {
             case 3 -> "yellow";
             case 4 -> "green";
             case 5 -> "blue";
+            case 6 -> " ";
             default -> "";
         };
     }
@@ -80,9 +82,10 @@ public class Row implements Cloneable, Serializable {
         String aux;
         r = fill(r);
         aux = fill(translateAString(box1));
-        r += " || " + aux + " || ";
+        r += box1 != 6 ? " | " + aux + " | " : "   " + aux + "   ";
         aux = fill(translateAString(box2));
         r += aux;
+        r += "||";
         return r;
     }
 
@@ -96,14 +99,6 @@ public class Row implements Cloneable, Serializable {
         return name;
     }
 
-    /**
-     * All cells of the same color, possible heuristics
-     */
-    public boolean correct() {
-        return box0 == box1
-                && box1 == box2;
-    }
-
     @Override
     public boolean equals(Object obj) {
         boolean equals = true;
@@ -114,6 +109,7 @@ public class Row implements Cloneable, Serializable {
             for (int i = 0; i < boxes.size(); i++) {
                 if (!boxes.get(i).equals(objBoxes.get(i))) {
                     equals = false;
+                    break;
                 }
             }
         } else {

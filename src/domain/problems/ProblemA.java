@@ -9,11 +9,7 @@ import java.util.ArrayList;
 /**
  * Define a problem to apply strategy A
  */
-public class ProblemA extends VoraciousProblem {
-
-    public ProblemA(Status start) {
-        super(start);
-    }
+public class ProblemA extends Problem {
 
     public ProblemA(Cube start) {
         super(start);

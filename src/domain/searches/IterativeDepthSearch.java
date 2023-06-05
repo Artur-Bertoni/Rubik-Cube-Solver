@@ -10,8 +10,6 @@ import java.util.Vector;
 public class IterativeDepthSearch extends BoundedDepthSearch {
 
     protected int iteration;
-    protected double timeStartTotal;
-
     protected double totalTimeComplexity;
     protected int finalSpatialComplexity;
 
@@ -58,15 +56,6 @@ public class IterativeDepthSearch extends BoundedDepthSearch {
     @Override
     public int getSpatialComplexity() {
         return finalSpatialComplexity;
-    }
-
-
-    public Vector<Double> getTemporalComplexityIterations() {
-        return temporalComplexityIterations;
-    }
-
-    public Vector<Integer> getSpatialComplexityIterations() {
-        return spatialComplexityIterations;
     }
 
 

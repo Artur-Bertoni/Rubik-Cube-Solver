@@ -36,7 +36,7 @@ public class BoundedDepthSearch extends SimpleDepthSearch {
             if (problem.objectiveTest(current.getCurrent())) {
                 result = true;
                 if (!this.frontier.isEmpty()) {
-                    solution = "Final Solution: \n\n" + current;
+                    solution = "Final Solution: \n" + current;
                 } else {
                     solution = "Solution not found";
                 }

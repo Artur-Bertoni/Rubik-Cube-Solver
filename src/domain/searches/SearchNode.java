@@ -37,38 +37,14 @@ public class SearchNode implements Comparable, Serializable {
         return operations;
     }
 
-    public SearchNode getParent() {
-        return parent;
-    }
-
-    public Status getEstado() {
-        return current;
-    }
-
-    /**
-     * Tree depth, order in the list of nodes derived from each other
-     */
     public int getDepth() {
         return depth;
     }
 
-    /**
-     * Value associated with this search node
-     */
     public int getValue() {
         return value;
     }
 
-    /**
-     * Action applied to the parent search node to get the current node
-     */
-    public String getAction() {
-        return current.getAction();
-    }
-
-    /**
-     * Current status
-     */
     public Status getCurrent() {
         return current;
     }

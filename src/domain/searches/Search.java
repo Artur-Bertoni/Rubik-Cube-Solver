@@ -22,13 +22,6 @@ public abstract class Search {
     protected Hashtable<Integer, Integer> status;
 
 
-    protected Search(boolean pruning) {
-        this.pruning = pruning;
-        frontier = new Frontier();
-        status = new Hashtable<>();
-        this.advance = 0;
-    }
-
     protected Search(Problem problem, boolean pruning) {
         this.problem = problem;
         frontier = new Frontier();
