@@ -12,5 +12,7 @@ public class Main {
         } else {
             ui.menu("cube/cube.txt");
         }
+
+        //TODO finalizar implementação de gerador aleatório de cubos
     }
 }

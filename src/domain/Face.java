@@ -26,6 +26,9 @@ public class Face implements Cloneable, Serializable {
         }
     }
 
+    public Face() {
+    }
+
     public Row getRow0() {
         return row0;
     }
@@ -186,6 +189,14 @@ public class Face implements Cloneable, Serializable {
         r += row1 + "\n";
         r += row2 + "\n";
         r += "------------------------------------";
+        return r;
+    }
+
+    public String toStringForFile() {
+        String r = "";
+        r += row0.toStringForFile() + "\n";
+        r += row1.toStringForFile() + "\n";
+        r += row2.toStringForFile() + "\n";
         return r;
     }
 

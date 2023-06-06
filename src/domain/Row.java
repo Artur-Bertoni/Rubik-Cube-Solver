@@ -14,7 +14,6 @@ public class Row implements Cloneable, Serializable {
         this.box0 = translateAInt(box0);
         this.box1 = translateAInt(box1);
         this.box2 = translateAInt(box2);
-
     }
 
     public Row(String[] array) {
@@ -25,7 +24,19 @@ public class Row implements Cloneable, Serializable {
         }
     }
 
-    private int translateAInt(String color) {
+    public void setBox0(int box0) {
+        this.box0 = box0;
+    }
+
+    public void setBox1(int box1) {
+        this.box1 = box1;
+    }
+
+    public void setBox2(int box2) {
+        this.box2 = box2;
+    }
+
+    public int translateAInt(String color) {
         return switch (color) {
             case "red" -> 0;
             case "white" -> 1;
@@ -38,7 +49,7 @@ public class Row implements Cloneable, Serializable {
         };
     }
 
-    private String translateAString(int color) {
+    public String translateAString(int color) {
         return switch (color) {
             case 0 -> "red";
             case 1 -> "white";
@@ -86,6 +97,15 @@ public class Row implements Cloneable, Serializable {
         aux = fill(translateAString(box2));
         r += aux;
         r += "||";
+        return r;
+    }
+
+    public String toStringForFile() {
+        String r = translateAString(box0);
+        String aux = translateAString(box1);
+        r += "  " + aux + "  ";
+        aux = translateAString(box2);
+        r += aux;
         return r;
     }
 

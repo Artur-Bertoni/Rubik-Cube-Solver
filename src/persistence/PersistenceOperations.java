@@ -4,9 +4,9 @@ import domain.Cube;
 import domain.Face;
 import domain.Row;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * File processing operations
@@ -74,5 +74,31 @@ public class PersistenceOperations {
             }
         }
         return cube;
+    }
+
+    /**
+     * Write to a file
+     */
+    public static void savingInFile(String name, String content) {
+        FileWriter file = null;
+        PrintWriter pw;
+        try {
+            file = new FileWriter(name);
+            pw = new PrintWriter(file);
+            pw.println(content);
+
+        } catch (Exception e) {
+            System.out.println();
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != file) {
+                    file.close();
+                }
+            } catch (Exception e2) {
+                System.out.println();
+                e2.printStackTrace();
+            }
+        }
     }
 }

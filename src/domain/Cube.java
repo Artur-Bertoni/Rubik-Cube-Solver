@@ -1,7 +1,12 @@
 package domain;
 
+import persistence.PersistenceOperations;
+
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Represents the cube in the program
@@ -26,6 +31,9 @@ public class Cube implements Cloneable, Serializable {
         this.backFace = backFace;
         this.leftFace = leftFace;
         this.downFace = downFace;
+    }
+
+    public Cube() {
     }
 
     /**
@@ -223,6 +231,18 @@ public class Cube implements Cloneable, Serializable {
                 "                                      -----------------------------------\n";
     }
 
+    public String toStringForFile() {
+        String r = "";
+        r += topFace.toStringForFile() + "\n";
+        r += leftFace.toStringForFile() + "\n";
+        r += frontFace.toStringForFile() + "\n";
+        r += rightFace.toStringForFile() + "\n";
+        r += backFace.toStringForFile() + "\n";
+        r += downFace.toStringForFile() + "\n";
+
+        return r;
+    }
+
     @Override
     public boolean equals(Object obj) {
         boolean equals = true;
@@ -333,7 +353,8 @@ public class Cube implements Cloneable, Serializable {
      */
     public int hashCode() {
         int hashCode = 7;
-        int[] primes = {2, 3, 5, 7, 11, 13,
+        int[] primes = {
+                2, 3, 5, 7, 11, 13,
                 17, 19, 23, 29, 31, 37,
                 41, 43, 47, 53, 101, 59,
                 61, 67, 71, 73, 79, 83,
@@ -341,7 +362,8 @@ public class Cube implements Cloneable, Serializable {
                 127, 131, 137, 139, 149, 151,
                 157, 163, 167, 173, 179, 181,
                 191, 193, 197, 199, 211, 223,
-                227, 229, 233, 239, 241, 251};
+                227, 229, 233, 239, 241, 251
+        };
         ArrayList<Face> faces = getFaces();
         ArrayList<Row> rows;
         ArrayList<String> boxes;
@@ -372,5 +394,62 @@ public class Cube implements Cloneable, Serializable {
             case "blue" -> 281;
             default -> 1;
         };
+    }
+
+    public static Cube generateRandomCube() {
+        Random random = new Random();
+        Face[] faces = new Face[6];
+
+        // Cria uma instância da classe Face para cada face do cubo
+        Row r0 = new Row("red", "red", "red");
+        Row r1 = new Row("red", "red", "red");
+        Row r2 = new Row("red", "red", "red");
+        faces[0] = new Face(r0, r1, r2);
+        r0 = new Row("white", "white", "white");
+        r1 = new Row("white", "white", "white");
+        r2 = new Row("white", "white", "white");
+        faces[1] = new Face(r0, r1, r2);
+        r0 = new Row("orange", "orange", "orange");
+        r1 = new Row("orange", "orange", "orange");
+        r2 = new Row("orange", "orange", "orange");
+        faces[2] = new Face(r0, r1, r2);
+        r0 = new Row("yellow", "yellow", "yellow");
+        r1 = new Row("yellow", "yellow", "yellow");
+        r2 = new Row("yellow", "yellow", "yellow");
+        faces[3] = new Face(r0, r1, r2);
+        r0 = new Row("green", "green", "green");
+        r1 = new Row("green", "green", "green");
+        r2 = new Row("green", "green", "green");
+        faces[4] = new Face(r0, r1, r2);
+        r0 = new Row("blue", "blue", "blue");
+        r1 = new Row("blue", "blue", "blue");
+        r2 = new Row("blue", "blue", "blue");
+        faces[5] = new Face(r0, r1, r2);
+
+        for (int i = 0; i < 6; i++) {
+            Face face = faces[i];
+
+            for (int j = 0; j < 3; j++) {
+                Row row = face.getRows().get(j);
+                String[] colors2 = colors;
+                for (int k = 0; k < 3; k++) {
+                    int randomColorIndex = random.nextInt(colors2.length);
+                    String box = colors2[randomColorIndex];
+                    if (k == 0) {
+                        row.setBox0(row.translateAInt(box));
+                    } else if (k == 1) {
+                        row.setBox1(row.translateAInt(box));
+                    } else {
+                        row.setBox2(row.translateAInt(box));
+                    }
+                    colors2[randomColorIndex] = colors2[colors2.length - 1];
+                    colors2 = Arrays.copyOf(colors2, colors2.length - 1);
+                }
+            }
+        }
+
+        PersistenceOperations.savingInFile("file.txt", new Cube(faces[0], faces[1], faces[2], faces[3], faces[4], faces[5]).toStringForFile());
+
+        return new Cube(faces[0], faces[1], faces[2], faces[3], faces[4], faces[5]);
     }
 }

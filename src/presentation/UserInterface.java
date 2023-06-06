@@ -5,6 +5,8 @@ import domain.problems.ProblemA;
 import domain.searches.IterativeDepthSearch;
 import persistence.PersistenceOperations;
 
+import static domain.Cube.generateRandomCube;
+
 /**
  * A user interface
  */
@@ -13,6 +15,9 @@ public class UserInterface {
     public void menu(String dir) {
 
         Cube cube = PersistenceOperations.readCube(dir);
+        cube = generateRandomCube();
+
+        System.out.println(cube);
 
         ProblemA p = new ProblemA(cube);
         IterativeDepthSearch b = new IterativeDepthSearch(p, 7, 1, true);
