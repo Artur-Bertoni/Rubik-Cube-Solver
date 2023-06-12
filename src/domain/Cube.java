@@ -396,14 +396,14 @@ public class Cube implements Cloneable, Serializable {
     }
 
     public static void generateRandomCube() {
-        var cores = new ArrayList<>();
-        for (String cor : colors) {
+        var colorsList = new ArrayList<>();
+        for (String color : colors) {
             for (int i = 0; i < 9; i++) {
-                cores.add(cor);
+                colorsList.add(color);
             }
         }
 
-        Collections.shuffle(cores);
+        Collections.shuffle(colorsList);
 
         Face[] faces = new Face[6];
         int index = 0;
@@ -413,7 +413,7 @@ public class Cube implements Cloneable, Serializable {
             for (int j = 0; j < 3; j++) {
                 String[] boxes = new String[3];
                 for (int k = 0; k < 3; k++) {
-                    boxes[k] = (String) cores.get(index);
+                    boxes[k] = (String) colorsList.get(index);
                     index++;
                 }
                 rows[j] = new Row(boxes);
