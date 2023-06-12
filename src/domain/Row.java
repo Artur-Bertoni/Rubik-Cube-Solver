@@ -103,7 +103,7 @@ public class Row implements Cloneable, Serializable {
     public String toStringForFile() {
         String r = translateAString(box0);
         String aux = translateAString(box1);
-        r += "  " + aux + "  ";
+        r += " " + aux + " ";
         aux = translateAString(box2);
         r += aux;
         return r;

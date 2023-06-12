@@ -193,10 +193,9 @@ public class Face implements Cloneable, Serializable {
     }
 
     public String toStringForFile() {
-        String r = "";
-        r += row0.toStringForFile() + "\n";
+        String r = row0.toStringForFile() + "\n";
         r += row1.toStringForFile() + "\n";
-        r += row2.toStringForFile() + "\n";
+        r += row2.toStringForFile();
         return r;
     }
 

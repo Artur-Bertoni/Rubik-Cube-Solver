@@ -5,8 +5,6 @@ import domain.Face;
 import domain.Row;
 
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * File processing operations
@@ -81,12 +79,12 @@ public class PersistenceOperations {
      */
     public static void savingInFile(String name, String content) {
         FileWriter file = null;
-        PrintWriter pw;
+        PrintWriter pw = null;
         try {
             file = new FileWriter(name);
             pw = new PrintWriter(file);
-            pw.println(content);
-
+            pw.print(content);
+            System.out.println("a");
         } catch (Exception e) {
             System.out.println();
             e.printStackTrace();
@@ -94,6 +92,7 @@ public class PersistenceOperations {
             try {
                 if (null != file) {
                     file.close();
+                    pw.close();
                 }
             } catch (Exception e2) {
                 System.out.println();
