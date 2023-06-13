@@ -1,5 +1,7 @@
 # Rubik Cube Resolver
 
+By Artur Bertoni dos Santos and Maria Eduarda Fischer
+
 Program to solve a Rubik's Cube using search strategies in java.
 At the moment the cube information is entered by changing the cube/cube.txt file;
 
