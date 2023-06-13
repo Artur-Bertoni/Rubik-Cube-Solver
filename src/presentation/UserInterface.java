@@ -17,9 +17,6 @@ public class UserInterface {
 //        generateRandomCube();
         Cube cube = PersistenceOperations.readCube(dir);
 
-        System.out.println(cube);
-        System.out.println("- - - - - -\n");
-
         ProblemA p = new ProblemA(cube);
         IterativeDepthSearch b = new IterativeDepthSearch(p, 7, 1, true);
 
