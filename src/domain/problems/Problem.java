@@ -52,7 +52,7 @@ public class Problem {
 
             c = (Cube) current.clone();
             c.rotate(i);
-            r.add(new Status(c, "F(" + i + ")tL"));
+            r.add(new Status(c, "F(" + i + ")tR"));
         }
         return r;
     }
